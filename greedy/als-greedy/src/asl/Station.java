@@ -6,9 +6,11 @@ package asl;
  */
 public class Station {
     
+    private String name;
     private int procTime;
     
-    public Station(int time) {
+    public Station(String name, int time) {
+        this.name = name;
         this.procTime = time;
     }
     
@@ -18,6 +20,14 @@ public class Station {
     
     public int getProcTime() {
         return this.procTime;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return this.name;
     }
     
 }

@@ -8,11 +8,12 @@ import java.util.ArrayList;
  */
 public class AssemblyLine {
     
+    private String name;
     private final int inProcTime, outProcTime;
     private int nStations;
-    ArrayList<Station> stations;
+    private ArrayList<Station> stations = new ArrayList<Station>();
     
-    public AssemblyLine(int inProcTime, int nStations, int outProcTime) {
+    public AssemblyLine(String name, int inProcTime, int nStations, int outProcTime) {
         this.inProcTime = inProcTime;
         this.nStations = nStations;
         this.outProcTime = outProcTime;
@@ -22,12 +23,36 @@ public class AssemblyLine {
         this.nStations = n;
     }
     
-    public int getProcTime() {
+    public int getNStations() {
         return this.nStations;
     }
     
-    public void createNewStation(int time) {
-        stations.add(new Station(time));
+    public int getInProcTime() {
+        return this.inProcTime;
+    }
+    
+    public int getOutProcTime() {
+        return this.outProcTime;
+    }
+    
+    public void createNewStation(String name, int time) {
+        this.stations.add(new Station(name, time));
+    }
+    
+    public int getProcTimeOfStation(int station) {
+        return this.stations.get(station).getProcTime();
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getName() {
+        return this.name;
+    }
+    
+    public String getNameOfStation(int station) {
+        return this.stations.get(station).getName();
     }
     
 }

@@ -14,6 +14,7 @@ public class AssemblyLine {
     private ArrayList<Station> stations = new ArrayList<Station>();
     
     public AssemblyLine(String name, int inProcTime, int nStations, int outProcTime) {
+        this.name = name;
         this.inProcTime = inProcTime;
         this.nStations = nStations;
         this.outProcTime = outProcTime;

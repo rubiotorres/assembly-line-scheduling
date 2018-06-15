@@ -16,7 +16,7 @@ public class AlsGreedy {
         int [] T1 = null, T2 = null;
         int time = 0, actualLine;
         
-        int instance = 1;
+        int instance = 2;
         
         // Instancia 01
         int inl11 = 3;
@@ -94,13 +94,13 @@ public class AlsGreedy {
             al2 = new AssemblyLine("al2", inl12, 9, outl12);
             al2.createNewStation(s121.getName(), s121.getProcTime());
             al2.createNewStation(s122.getName(), s122.getProcTime());
-            al2.createNewStation(s122.getName(), s123.getProcTime());
-            al2.createNewStation(s122.getName(), s124.getProcTime());
-            al2.createNewStation(s122.getName(), s125.getProcTime());
-            al2.createNewStation(s122.getName(), s126.getProcTime());
-            al2.createNewStation(s122.getName(), s127.getProcTime());
-            al2.createNewStation(s122.getName(), s128.getProcTime());
-            al2.createNewStation(s122.getName(), s129.getProcTime());
+            al2.createNewStation(s123.getName(), s123.getProcTime());
+            al2.createNewStation(s124.getName(), s124.getProcTime());
+            al2.createNewStation(s125.getName(), s125.getProcTime());
+            al2.createNewStation(s126.getName(), s126.getProcTime());
+            al2.createNewStation(s127.getName(), s127.getProcTime());
+            al2.createNewStation(s128.getName(), s128.getProcTime());
+            al2.createNewStation(s129.getName(), s129.getProcTime());
             
             T2 = new int[] {5, 3, 7, 5, 6, 2, 5, 2};
             
@@ -132,21 +132,23 @@ public class AlsGreedy {
         }
         
         // Starting greedy solution
+        System.out.println("Instância: " + instance);
+        
         // Getting the assembly line with faster input processing time
         if (al1.getInProcTime() > al2.getInProcTime()) {
-            System.out.println(al1.getName());
-            System.out.println(al1.getNameOfStation(0));
-            actualLine = 1;
-            time += al1.getProcTimeOfStation(0) + al1.getInProcTime();
-        } else {
-            System.out.println(al2.getName());
-            System.out.println(al2.getNameOfStation(0));
+            System.out.println("Inicio: " + al2.getName() + " Tempo: " + al2.getInProcTime());
+            System.out.println("Estação: " + al2.getNameOfStation(0)+ " Tempo: " + al2.getProcTimeOfStation(0));
             actualLine = 2;
             time += al2.getProcTimeOfStation(0) + al2.getInProcTime();
+        } else {
+            System.out.println("Inicio: " + al1.getName() + " Tempo: " + al1.getInProcTime());
+            System.out.println("Estação: " + al1.getNameOfStation(0)+ " Tempo: " + al1.getProcTimeOfStation(0));
+            actualLine = 1;
+            time += al1.getProcTimeOfStation(0) + al1.getInProcTime();
         }
         
         // Iterating in the assembly lines's stations
-        for (int i = 0; i < al1.getNStations(); i++) {
+        for (int i = 0; i < al1.getNStations() - 1; i++) {
             if (actualLine == 1) {
                 int auxNextStationAL = al1.getProcTimeOfStation(i + 1);
                 int auxTransition = T1[i];
@@ -157,10 +159,13 @@ public class AlsGreedy {
                 // line
                 if (auxNextStationAL > auxTransition + auxNextStationOL) {
                     actualLine = 2;
-                    time += auxTransition + auxNextStationOL;
+                    System.out.println("Transição: " + i + " Tempo: " + auxTransition);
+                    System.out.println("Estação: " + al2.getNameOfStation(i + 1) + " Tempo: " + auxNextStationOL);
+                    time = time + auxTransition + auxNextStationOL;
                 } else {
                     actualLine = 1;
-                    time += auxNextStationAL;
+                    System.out.println("Estação: " + al1.getNameOfStation(i + 1) + " Tempo: " + auxNextStationAL);
+                    time = time + auxNextStationAL;
                 }
             } else {
                 int auxNextStationAL = al2.getProcTimeOfStation(i + 1);
@@ -169,14 +174,27 @@ public class AlsGreedy {
 
                 if (auxNextStationAL > auxTransition + auxNextStationOL) {
                     actualLine = 1;
-                    time += auxTransition + auxNextStationOL;
+                    System.out.println("Transição: " + i + " Tempo: " + auxTransition);
+                    System.out.println("Estação: " + al1.getNameOfStation(i + 1) + " Tempo: " + auxNextStationOL);
+                    time = time + auxTransition + auxNextStationOL;
                 } else {
                     actualLine = 2;
-                    time += auxNextStationAL;
+                    System.out.println("Estação: " + al2.getNameOfStation(i + 1) + " Tempo: " + auxNextStationAL);
+                    time = time + auxNextStationAL;
                 }
                 
             }
         }
+        
+        if (actualLine == 1) {
+            time += al1.getOutProcTime();
+            System.out.println("Inicio: " + al1.getName() + " Tempo: " + al1.getOutProcTime());
+        } else {
+            time += al2.getOutProcTime();
+            System.out.println("Inicio: " + al2.getName() + " Tempo: " + al2.getOutProcTime());
+        }
+        
+        System.out.println("Tempo total: " + time);
         
     }
     

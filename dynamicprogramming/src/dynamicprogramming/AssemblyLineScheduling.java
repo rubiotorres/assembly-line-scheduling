@@ -1,16 +1,14 @@
-package trabalhopratico2;
+package dynamicprogramming;
 /*
     A programaçao dinamica leva em conta caminhos traçados anteriormente,
     monta-se uma uma "tabela" de resultados anteriores.
 */
-import java.util.*;
-
 public class AssemblyLineScheduling {
 
     public AssemblyLineScheduling() {
     }
     
-    
+     
 
     void LinhaMontagePD(int[]a1,int[]a2,int[]t1,int[]t2, int e1, int e2,int x1, int x2) {
         
